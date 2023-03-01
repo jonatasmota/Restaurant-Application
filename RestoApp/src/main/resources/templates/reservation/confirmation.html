@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NBCC Restaurant - Hospitality and Tourism</title>
+
+<link rel="shortcut icon" href="/images/favicon-32x32.png"
+	type="image/svg+xml" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Rubik:wght@400;500;600;700&family=Shadows+Into+Light&display=swap"
+	rel="stylesheet" />
+<link rel="stylesheet" href="/css/reservation.css" />
+
+<link rel="preload" as="image" href="/images/hero-banner.png"
+	media="min-width(768px)" />
+<link rel="preload" as="image" href="/images/hero-banner-bg.png"
+	media="min-width(768px)" />
+</head>
+
+<body id="top">
+	<!-- Header -->
+	<header class="header" data-header>
+		<div class="container">
+			<a class="logoText" href="/#"> <img
+				src="/images/nbcc-vertical.png" alt="Logo" class="logo-img">
+
+				Dinning Room&nbsp;<span class="logoSpan">1234</span>
+
+			</a>
+
+
+			<nav class="navbar" data-navbar>
+				<ul class="navbar-list">
+					<li class="nav-item"><a href="/#home" class="navbar-link"
+						data-nav-link>Home</a></li>
+
+					<li class="nav-item"><a href="/#events" class="navbar-link"
+						data-nav-link>Events</a></li>
+
+					<li class="nav-item"><a href="/#about" class="navbar-link"
+						data-nav-link>About</a></li>
+
+					<li class="nav-item"><a href="/#gallery" class="navbar-link"
+						data-nav-link>Gallery</a></li>
+				</ul>
+			</nav>
+
+			<div class="header-btn-group">
+
+				<button class="btn btn-hover">Reservation</button>
+				<button class="nav-toggle-btn" aria-label="Toggle Menu"
+					data-nav-toggle-btn>
+					<span class="line top"></span> <span class="line middle"></span> <span
+						class="line bottom"></span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+
+	<main>
+		<article>
+			<section class="confirmation">
+				<div th:object="${reservation}"
+					class="container table-responsive py-5">
+					<h4>
+						Reservation for <span class="span h3" th:text="*{firstName}"></span>
+						<span class="span h3" th:text="*{lastName}"></span>
+					</h4>
+					<br />
+					<table class="table table-bordered table-hover">
+						<tr>
+							<th>Event</th>
+							<td th:text="*{resEvent.eventName}"></td>
+						</tr>
+
+						<tr>
+							<th scope="col">Seats</th>
+							<td th:text="*{seats}"></td>
+						</tr>
+
+						<tr>
+							<th>Time</th>
+							<td><span th:text="*{timeSlot.hour}" class="span"></span>:<span
+								th:text="*{timeSlot.minute}" class="span"></span></td>
+						</tr>
+						<tr>
+
+							<th scope="col">Confirmation Number</th>
+							<td th:text="*{confirmationNumber}"></td>
+						</tr>
+						<tr>
+
+							<th scope="col">Special Requests</th>
+							<td th:text="*{requests}"></td>
+						</tr>
+
+						<tr>
+							<th scope="col">First Name</th>
+							<td th:text="*{firstName}"></td>
+						</tr>
+						<tr>
+
+							<th scope="col">Last Name</th>
+							<td th:text="*{lastName}"></td>
+						</tr>
+						<tr>
+
+							<th scope="col">Email Address</th>
+							<td th:text="*{email}"></td>
+						</tr>
+						<tr>
+
+							<th scope="col">Phone Number</th>
+							<td th:text="*{phone}"></td>
+						</tr>
+
+					</table>
+					<br /> <a th:href="@{../}"><button class="btn btn-hover">Back
+							to Home</button> </a>
+				</div>
+
+			</section>
+		</article>
+	</main>
+
+
+
+	<footer class="footer">
+		<div class="footer-top"
+			style="background-image: url('/images/footer-illustration.png')">
+			<div class="container">
+				<div class="footer-brand">
+					<a href="#" class="logoFooterText"><img
+						src="/images/nbcc-vertical.png" alt="Logo" class="logo-img">Dining
+						Room&nbsp;<span class="logoFooterSpan">1234</span></a>
+					<p class="footer-text">Dining Room 1234 is run by NBCC culinary
+						students and is located on campus in Moncton/NB.</p>
+
+					<ul class="social-list">
+						<li><a href="https://www.facebook.com/DiningRoom1234"
+							class="social-link"> <ion-icon name="logo-facebook"></ion-icon>
+						</a></li>
+
+						<li><a href="https://twitter.com/myNBCC" class="social-link">
+								<ion-icon name="logo-twitter"></ion-icon>
+						</a></li>
+
+						<li><a href="https://www.instagram.com/nbccmoncton/"
+							class="social-link"> <ion-icon name="logo-instagram"></ion-icon>
+						</a></li>
+
+						<li><a
+							href="https://www.linkedin.com/school/nbcc-new-brunswick-community-college-/"
+							class="social-link"> <ion-icon name="logo-linkedin"></ion-icon>
+						</a></li>
+
+						<li><a href="https://www.youtube.com/user/myNBCC"
+							class="social-link"> <ion-icon name="logo-youtube"></ion-icon>
+						</a></li>
+
+						<li><a href="https://www.snapchat.com/add/mynbcc"
+							class="social-link"> <ion-icon name="logo-snapchat"></ion-icon>
+						</a></li>
+					</ul>
+				</div>
+
+				<ul class="footer-list">
+					<li>
+						<p class="footer-list-title">Contact Info</p>
+					</li>
+
+					<li>
+						<p class="footer-list-item">+1 888-796-6222</p>
+					</li>
+
+					<li>
+						<p class="footer-list-item">mo.hospitality@nbcc.ca</p>
+					</li>
+
+					<li>
+						<address class="footer-list-item">1234 Mountain Road,
+							Moncton, NB E1C 8H9</address>
+					</li>
+				</ul>
+
+				<ul class="footer-list">
+					<li>
+						<p class="footer-list-title">Opening Hours</p>
+					</li>
+
+					<li>
+						<p class="footer-list-item">Monday-Friday: 09:00-03:30</p>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<div class="container">
+				<p class="copyright-text">
+					&copy; 2022 <a href="https://nbcc.ca/" class="copyright-link">
+						NBCC </a> All Rights Reserved.
+				</p>
+			</div>
+		</div>
+	</footer>
+
+	<a href="#top" class="back-top-btn" aria-label="Back to Top"
+		data-back-top-btn> <ion-icon name="chevron-up"></ion-icon>
+	</a>
+
+	<script src="/js/script.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		defer>
+		
+	</script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		defer>
+		
+	</script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>

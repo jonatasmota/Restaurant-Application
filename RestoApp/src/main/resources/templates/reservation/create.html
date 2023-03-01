@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head" />
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="./fragments :: html_sidebar"></div>
+
+			<!-- overlay to close sidebar on small screens -->
+			<div class="w-100 vh-100 position-fixed overlay d-none"
+				id="sidebar-overlay"></div>
+			<!-- note: in the layout margin auto is the key as sidebar is fixed -->
+			<div class="col-md-9 col-lg-10 ml-md-auto px-0">
+				<!-- top nav -->
+				<nav th:replace="./fragments :: html_navbar"></nav>
+
+				<div class="container">
+					<h1>Add/Edit Reservation</h1>
+					<hr>
+
+					<!-- note: if no future events exist, the user cannot create a reservation  -->
+					<div th:if="${futureEvents.size() ==0}">
+						<p class="mb-4">No Upcoming Events.</p>
+						<a th:href="@{/newEvent}" class="btn btn-primary">Add An Event</a>
+						<a th:href="@{/reservations}" class="btn btn-primary"> Back to
+							Reservations</a>
+					</div>
+
+					<div th:unless="${futureEvents.size() == 0}">
+
+						<div class="card m-2">
+							<div class="card-body">
+								<h4>Event Date</h4>
+								<div class="row mb-4">
+									<form th:action="@{/create}" th:object="${eventID}"
+										class="form-inline">
+										<div class="col">
+											<div class="form-outline">
+												<select name="events" class="form-control">
+													<option th:each="fEvent : ${futureEvents}"
+														th:text="${fEvent.eventDate}" th:value="${fEvent.eventId}" />
+												</select>
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-outline">
+												<button class="btn">Select</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+						<form th:action="@{/res}" th:object="${reservation}" method="POST"
+							th:if="${resEvent}">
+							<input type="hidden" th:field="*{reservationId}"
+								th:value="${reservation.reservationId}">
+							<div class="card m-2">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<div class="form-inline">
+												<h4 th:text="${resEvent.eventName}"></h4>
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-inline">
+												<h4 th:text="${resEvent.eventDate}"></h4>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<div class="form-inline" th:if="${eventTimeSlots}">
+												<label class="form-label mr-sm-3" for="time">Time
+													Slot</label> <select name="time" th:field="*{resTimeSlotID}"
+													class="form-control" style="width: auto;">
+													<option th:each="timeSlot : ${eventTimeSlots}"
+														th:selected="${timeSlot == reservation.timeSlot}"
+														th:value="${timeSlot.id}"><span
+															th:text="${timeSlot.hour}"></span>:<span
+															th:text="${timeSlot.minute}"></span></option>
+												</select>
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-inline">
+												<label class="form-label mr-sm-3" for="seats">Seats</label>
+												<select name="seats" class="form-control"
+													style="width: auto;">
+													<option th:each="num : ${seatList}"
+														th:selected="${num == reservation.seats}" th:text="${num}" />
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card m-2">
+								<div class="card-body">
+									<h4>Contact Information</h4>
+									<div class="row mb-4">
+										<div class="col">
+											<div class="form-outline">
+												<label class="form-label" for="firstName">First Name</label>
+												<input type="text" th:field="*{firstName}" id="firstName"
+													class="form-control" />
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-outline">
+												<label class="form-label" for="lastName">Last Name</label> <input
+													type="text" th:field="*{lastName}" id="lastName"
+													class="form-control" />
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-outline">
+												<label class="form-label" for="phone">Phone Number</label> <input
+													class="form-control" th:field="*{phone}" id="phone"></input>
+											</div>
+										</div>
+
+									</div>
+									<div class="row mb-4">
+										<div class="col-md-4">
+											<div class="form-outline">
+												<label class="form-label" for="email">Email</label> <input
+													type="text" th:field="*{email}" id="email"
+													class="form-control" />
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-outline mb-4">
+												<div class="form-outline">
+													<label class="form-label" for="requests">Special
+														Requests</label>
+													<textarea class="form-control noResize"
+														th:field="*{requests}" id="requests" rows="2"></textarea>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="row"></div>
+								</div>
+							</div>
+
+							<!-- Submit button -->
+							<div class="m-2">
+								<button type="submit" class="btn btn-primary">Save</button>
+								<a th:href="@{/reservations}" class="btn btn-primary"> Back
+									to Reservations</a>
+								<!-- 	<a th:href="@{/newMenuItem}" class="btn btn-primary float-right"> Add Item Menu</a> -->
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- footer -->
+	<footer th:replace="./fragments :: html_footer"></footer>
+	<!-- end of footer -->
+
+
+	<script src="/js/dashboard.js" defer></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		defer></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+		defer></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

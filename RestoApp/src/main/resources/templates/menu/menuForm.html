@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head" />
+<link rel="stylesheet" href="../../static/css/menu.css" th:href="@{/css/menu.css}">
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="./fragments :: html_sidebar"></div>
+
+			<!-- overlay to close sidebar on small screens -->
+			<div class="w-100 vh-100 position-fixed overlay d-none"
+				id="sidebar-overlay"></div>
+			<!-- note: in the layout margin auto is the key as sidebar is fixed -->
+			<div class="col-md-9 col-lg-10 ml-md-auto px-0">
+				<!-- top nav -->
+				<nav th:replace="./fragments :: html_navbar"></nav>
+
+				<div class="container">
+					<div th:if="*{menuId == null}"><h1>Add Menu</h1></div>
+					<div th:unless="*{menuId == null}"><h1>Edit Menu</h1></div>
+					<hr>
+					<form th:action="@{/menu/save}" method="POST" th:object="${menu}">
+						<input type="hidden" th:field=*{menuId} th:value="${menu.menuId}" />
+						<div class="row mb-5">
+							<div class="col-sm-6">
+								<div class="form-outline">
+									<label class="form-label" for="menuName">Name</label> 
+									<input type="text" th:field="*{menuName}" id="menuName"
+										class="form-control" required />
+								</div>
+							</div>
+						<div class="col-sm-6">
+								<div class="form-outline">
+									<label class="form-label" for="menuCreated">Date Created</label> 
+									<input type="date" th:field="*{menuCreated}" id="menuCreated" class="form-control" required/>
+								</div>
+							</div>
+							<div class="col-sm-12 mt-3">
+								<div class="form-outline">
+									<label class="form-label" for="menuDetails">Details</label>
+									<textarea class="form-control" th:field="*{menuDetails}"
+										id="menuDetails" rows="2"></textarea>
+								</div>
+							</div>
+							<hr>
+							<!-- buttons -->
+							<div class="col-sm-12 mt-3">
+								<div class="form-outline float-left">
+									<button type="submit" class="btn btn-primary mr-1">Save</button>
+									
+								</div>
+								<a th:href="@{/menus}" class="btn btn-primary"> Back to Menu List</a>
+									<button type="button" class="btn btn-primary float-right"
+										data-toggle="modal" data-target="#addMenuItemModal" th:disabled="${menu.menuId eq 0}">Add Menu Item
+									</button>
+					
+							</div>
+						</div>
+					</form>
+
+					<!-- menu item  -->
+					<!-- end of menu item  -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- pagination -->
+	<div class="text-center text-secondary mb-3">
+		<div th:replace="~{menu/pagination :: pagination}"></div>
+	</div>
+	<!-- end of pagination -->
+
+	<!-- footer -->
+	<footer th:replace="./fragments :: html_footer"></footer>
+	<!-- end of footer -->
+
+	<!-- Modal to add menu item -->
+	<div class="modal fade" id="addMenuItemModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Menu Item</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<form action="/item/save" method="post" th:object="${menuItem}">
+						<div th:object="${menu}">
+							<input type="hidden" name="menuId" th:value="${menu.menuId}">
+						</div>
+						<div class="form-group">
+							<label for="menuItemName" class="col-form-label">Menu
+								Item Name:</label> <input type="text" class="form-control"
+								name="menuItemName" id="menuItemName" required>
+						</div>
+						<div class="form-group">
+							<label for="menuItemPrice" class="col-form-label">Price:</label>
+							<input type="number" step=0.01 class="form-control"
+								name="menuItemPrice" id="menuItemPrice" required>
+						</div>
+						<div class="form-group">
+							<label for="menuItemImgUrl" class="col-form-label">Image
+								URL:</label> <input type="text" class="form-control"
+								name="menuItemImgUrl" id="menuItemImgUrl" />
+						</div>
+						<div class="form-group">
+							<label for="menuItemDescription" class="col-form-label">Description:</label>
+							<textarea class="form-control" name="menuItemDescription"
+								id="menuItemDescription" ></textarea>
+						</div>
+						<button class="btn btn-primary">Add</button>
+					</form>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"	data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/dashboard.js" defer></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		defer></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+		defer></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

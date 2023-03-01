@@ -1,0 +1,39 @@
+@charset "ISO-8859-1";
+
+/* tooltip search input field */
+
+@-webkit-keyframes showTooltip {
+  from {opacity: 0;}
+    to {opacity: 1;}
+}
+@-moz-keyframes showTooltip {
+  from {opacity: 0;}
+    to {opacity: 1;}
+}
+@keyframes showTooltip {
+  from {opacity: 0;}
+    to {opacity: 1;}
+}
+.form-item {
+  position: relative;
+}
+.message-tip:after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 0.80;
+  left: 10%;
+  display: none;
+  padding: 1em;
+  color: white;
+  font-size: small;
+}
+
+.message-tip:hover:after {
+  display: block;
+  -webkit-animation: showTooltip 0.60s ease-in-out;
+  -moz-animation: showTooltip 0.60s ease-in-out;
+  animation: showTooltip 0.60s ease-in-out;
+}
+.message-tip:after {
+  background-color: #808080;
+}

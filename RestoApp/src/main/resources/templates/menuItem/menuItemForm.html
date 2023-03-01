@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head" />
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="./fragments :: html_sidebar"></div>
+
+			<!-- overlay to close sidebar on small screens -->
+			<div class="w-100 vh-100 position-fixed overlay d-none"
+				id="sidebar-overlay"></div>
+			
+			<!-- note: in the layout margin auto is the key as sidebar is fixed -->
+			<div class="col-md-9 col-lg-10 ml-md-auto px-0">
+				
+				<!-- top nav -->
+				<nav th:replace="./fragments :: html_navbar"></nav>
+
+				<div class="container">
+					<div th:if="*{menuItemId == null}"><h1>Add Menu Item</h1></div>
+					<div th:unless="*{menuItemId == null}"><h1>Edit Menu Item</h1></div>
+					<hr>
+					<div class="col-sm-12 alert alert-danger" role="alert" th:if="${menuList.size() == 0}">
+							<p>You must <a th:href="@{/menus/new}" class="alert-link">create a menu</a> before attempting to add a menu item.</p>
+					</div>
+						<div th:unless="${menuList.size() == 0}">
+						<form th:action="@{/items/save}" th:object="${menuItem}" method="POST">
+							<input type="hidden" th:field="*{menuItemId}" th:value="${menuItem.menuItemId}" />
+							<div class="row mb-5">
+								<div class="col-sm-4">
+									<label class="form-label" for="menuItemName">Menu Name</label> 
+									<select
+										th:field="*{menu}" class="form-control" required>
+										<th: block th:each="menu: ${menuList}">
+											<option th:text="${menu.menuName}" th:value="${menu.menuId}">
+												</th:block>
+									</select>
+								</div>
+	
+								<div class="col-sm-4">
+									<div class="form-outline">
+										<label class="form-label" for="menuItemName">Item Name</label>
+										<input type="text" th:field="*{menuItemName}" id="menuItemName" class="form-control" required />
+									</div>
+								</div>
+	
+								<div class="col-sm-4">
+									<div class="form-outline">
+										<label class="form-label" for="menuItemPrice">Price</label> 
+										<input type="number" step="0.01" th:field="*{menuItemPrice}" id="menuItemPrice" class="form-control" required />
+									</div>
+								</div>
+								<div class="col-sm-12 mt-3">
+									<div class="form-outline">
+										<label class="form-label" for="menuItemImgUrl">Image URL</label>
+										<input type="text" th:field="*{menuItemImgUrl}"	id="menuItemImgUrl" class="form-control"  />
+									</div>
+								</div>
+								<div class="col-sm-12 mt-3">
+									<div class="form-outline">
+										<label class="form-label" for="menuItemDescription">Description</label>
+										<textarea th:field="*{menuItemDescription}"	id="menuItemDescription" class="form-control" >
+										</textarea>
+									</div>
+								</div>
+	
+								<!-- buttons -->
+								<div class="col-sm-12 mt-3">
+									<div class="form-outline float-left">
+										<button type="submit" class="btn btn-primary mr-1">Save</button>
+									</div>
+									<a th:href="@{/menuItems}" class="btn btn-primary"> Back to	Menu Item List</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+	<footer th:replace="./fragments :: html_footer"></footer>
+	<!-- end of footer -->
+
+	<script src="/js/dashboard.js" defer></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		defer></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+		defer></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

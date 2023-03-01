@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="html_head">
+
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>College Restaurant - Hospitality and Tourism</title>
+<link rel="shortcut icon" href="/images/favicon-32x32.png"
+	type="image/svg+xml" />
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Rubik:wght@400;500;600;700&family=Shadows+Into+Light&display=swap"
+	rel="stylesheet" />
+<link rel="stylesheet" href="/css/dashboard.css" />
+
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- sidebar -->
+			<div th:fragment="html_sidebar"
+				class="col-md-3 col-lg-2 px-0 position-fixed h-100 bg-white shadow-sm sidebar"
+				id="sidebar">
+				<a class="logoText d-flex my-4 justify-content-center" th:href="@{/dashboard}"> 
+
+				Dining Room&nbsp;<span class="logoSpan">7777</span>
+
+			</a>
+				
+				
+				<div class="list-group rounded-0">
+					<a th:href="@{/dashboard}"
+						class="list-group-item list-group-item-action border-0 d-flex align-items-center"
+						th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}"
+						aria-current="page"> <ion-icon name="clipboard-outline"></ion-icon>
+						<span class="ml-2">Dashboard</span>
+					</a> 
+
+					<button
+						class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center"
+						data-toggle="collapse" data-target="#reservation-collapse">
+						<div>
+							<ion-icon name="calendar-outline"></ion-icon>
+							<span class="ml-2">Reservations</span>
+						</div>
+						<ion-icon name="chevron-down-outline"></ion-icon>
+					</button>
+					<div class="collapse" id="reservation-collapse" th:classappend="${#httpServletRequest.getRequestURI() == '/reservations' ? 'show':''}"
+						data-parent="#sidebar">
+						<div class="list-group">
+							<a th:href="@{/reservations}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/reservations' ? 'active':''}">Reservations
+								List</a> <a th:href="@{/create}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/create' ? 'active':''}">New Reservation</a>
+						</div>
+					</div>
+
+
+
+					<button
+						class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center"
+						data-toggle="collapse" data-target="#event-collapse">
+						<div>
+							<ion-icon name="balloon-outline"></ion-icon>
+							<span class="ml-2">Events</span>
+						</div>
+						<ion-icon name="chevron-down-outline"></ion-icon>
+					</button>
+					<div class="collapse" id="event-collapse" th:classappend="${#httpServletRequest.getRequestURI() == '/events' ? 'show':''}"
+						data-parent="#sidebar">
+						<div class="list-group">
+							<a th:href="@{/events}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/events' ? 'active':''}">Events
+								List</a> <a th:href="@{/newEvent}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/newEvent' ? 'active':''}">New
+								Event</a>
+						</div>
+					</div>
+					
+					<button
+						class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center"
+						data-toggle="collapse" data-target="#timeslot-collapse">
+						<div>
+							<ion-icon name="time-outline"></ion-icon>
+							<span class="ml-2">Time Slot</span>
+						</div>
+						<ion-icon name="chevron-down-outline"></ion-icon>
+					</button>
+					<div class="collapse" id="timeslot-collapse" th:classappend="${#httpServletRequest.getRequestURI() == '/timeslots' ? 'show':''}"
+						data-parent="#sidebar">
+						<div class="list-group">
+							<a th:href="@{/timeslots}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/timeslots' ? 'active':''}">Time Slots
+								List</a> <a th:href="@{/newTimeslot}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/newTimeslot' ? 'active':''}">New
+								Time Slot</a>
+						</div>
+					</div>
+					
+					<button
+						class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center"
+						data-toggle="collapse" data-target="#menu-collapse">
+						<div>
+							<ion-icon name="grid-outline"></ion-icon>
+							<span class="ml-2">Menu</span>
+						</div>
+						<ion-icon name="chevron-down-outline"></ion-icon>
+					</button>
+					<div class="collapse" id="menu-collapse" th:classappend="${#httpServletRequest.getRequestURI() == '/menus' ? 'show':''}"
+						data-parent="#sidebar">
+						<div class="list-group">
+							<a th:href="@{/menus}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/menus' ? 'active':''}">Menu
+								List</a> <a th:href="@{/menus/new}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/new' ? 'active':''}">Add
+								Menu</a> <a href="/menuItems"
+								class="list-group-item list-group-item-action border-0 pl-5">Menu
+								Items</a>
+						</div>
+					</div>
+
+					<button
+						class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center"
+						data-toggle="collapse" data-target="#floorplan-collapse">
+						<div>
+							<ion-icon name="restaurant-outline"></ion-icon>
+							<span class="ml-2">Floor Plan</span>
+						</div>
+						<ion-icon name="chevron-down-outline"></ion-icon>
+					</button>
+					<div class="collapse" id="floorplan-collapse"
+						data-parent="#sidebar">
+						<div class="list-group">
+							<a th:href="@{/getFloorPlans}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/floorplan' ? 'active':''}">Floor Plan List
+								</a> <a th:href="@{/floorPlanForm}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/newFloorPlan' ? 'active':''}">Add
+								Floor Plan</a> 
+						</div>
+					</div>
+
+					<button
+						class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center"
+						data-toggle="collapse" data-target="#gallery-collapse">
+						<div>
+							<ion-icon name="images-outline"></ion-icon>
+							<span class="ml-2">Gallery</span>
+						</div>
+						<ion-icon name="chevron-down-outline"></ion-icon>
+					</button>
+					<div class="collapse" id="gallery-collapse"
+						data-parent="#sidebar">
+						<div class="list-group">
+							<a th:href="@{/gallery}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/gallery' ? 'active':''}">Gallery List
+								</a> <a th:href="@{/showNewGalleryForm}"
+								class="list-group-item list-group-item-action border-0 pl-5"
+								th:classappend="${#httpServletRequest.getRequestURI() == '/showNewGalleryForm' ? 'active':''}">Add
+								Image</a> 
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<!-- overlay to close sidebar on small screens -->
+			<div class="w-100 vh-100 position-fixed overlay d-none"
+				id="sidebar-overlay"></div>
+			<!-- note: in the layout margin auto is the key as sidebar is fixed -->
+			<div class="col-md-9 col-lg-10 ml-md-auto px-0">
+				<!-- top nav -->
+				<nav th:fragment="html_navbar"
+					class="w-100 d-flex px-4 py-2 mb-4 shadow-sm">
+					<!-- close sidebar -->
+					<button class="btn py-0 d-lg-none d-flex align-items-center" id="open-sidebar">
+						<ion-icon name="menu-outline" class="h3"></ion-icon>
+					</button>
+					<div class="dropdown ml-auto">
+						<button class="btn py-0 d-flex align-items-center"
+							id="logout-dropdown" data-toggle="dropdown" aria-expanded="false">
+							<ion-icon name="person-outline" class="h4"></ion-icon>
+							<ion-icon name="chevron-down-outline"></ion-icon>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right border-0 shadow-sm"
+							aria-labelledby="logout-dropdown">
+							<a class="dropdown-item" href="/signoff">Logout</a>
+						</div>
+					</div>
+				</nav>
+
+				<!-- main content -->
+
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+	<footer class="footer" th:fragment="html_footer">
+
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="footer-brand">
+					<a href="#" class="logoFooterText"><img
+						src="/images/nbcc-vertical.png" alt="Logo" class="logo-img">Dining
+						Room&nbsp;<span class="logoFooterSpan">7777</span></a>
+					<p class="copyright-text">
+						&copy; 2022 <a href="https://nbcc.ca" class="copyright-link"> College </a> All
+						Rights Reserved.
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- end of footer -->
+
+
+	<script src="/js/dashboard.js" defer></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		defer></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+		defer></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
